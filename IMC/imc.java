@@ -20,6 +20,15 @@ public class imc{
             }
         throw new RuntimeException("Argumentos inválidos" );
     }
+
+     static String categoria(double k){
+        if( k < 18.5) return "MAGRO";
+        if(18.5 <= k && k < 24.9) return "NORMAL";
+        if(25 <= k && k <= 29.9) return "GORDO";
+        if(30 < k) return "OBESO";
+        
+        throw new IllegalArgumentException("Dados inválidos");
+    }
     
 
 
@@ -44,8 +53,10 @@ public class imc{
 
 
         String resultado = String.format("%.2f", imcCalc(pI, aD));
+        String i = categoria(imcCalc(pI, aD));
 
         System.out.println("IMC = " + resultado);
+        System.out.println("Categoria: " + i);
 
 
     }
