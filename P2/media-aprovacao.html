@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ensaio: Média de Aprovação (FOO-2021)</title>
+</head>
+
+<body>
+  <h1>Ensaio de Composição Funcional Foo-2021</h1>
+  <p><b>Avaliação P1=</b>
+    <input id="p1" type="number" value="0" min="0" max="10">
+  </p>
+  <p><b>Avaliação P2=</b>
+    <input id="p2" type="number" value="0" min="0" max="10">
+  </p>
+  <p>
+
+  </p>
+  <button onclick="calcularMf()">Calcular Situação</button>
+  <div id="media-final"></div>
+  </p>
+  <script type="text/javascript">
+
+    function calcularMf() {
+      var p1 = parseFloat(document.getElementById('p1').value);
+      var p2 = parseFloat(document.getElementById('p2').value);
+      var sit = funcaoSituacao(funcaoMediaFinal(p1, p2));
+      document.getElementById('media-final').innerHTML = funcaoMostrar(sit);
+    }
+
+    function invalido(p) {
+      if (isNaN(p) || p < 0 || 10 < p) return true;
+      return false;
+    }
+
+    function funcaoMediaFinal(p1, p2) {
+      if (invalido(p1)) return { info: "P1 não é válido", valido: false };
+      if (invalido(p2)) return { info: "P2 não é válido", valido: false };
+      return { valido: true, valor: mediaFinal(p1, p2) };
+    }
+
+    function mediaFinal(p1, p2) {
+      return (p1 + p2) / 2;
+    }
+
+    function funcaoSituacao(mf) {
+      if (mf.valido) {
+        if (mf.valor < 5) return { info: "REPROVADO", valor: mf.valor };
+        if (mf.valor >= 5) return { info: "APROVADO", valor: mf.valor };
+      }
+      return { info: mf.info, valor: "..." };
+    }
+
+    function funcaoMostrar(sit) {
+      return "<B>Situação final=</b> " + sit.info + " (" + sit.valor + ")";
+    }
+
+  </script>
+</body>
+
+</html>
